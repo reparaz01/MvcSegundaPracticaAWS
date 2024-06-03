@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MvcSegundaPracticaAWS.Models.Evento>
+
+@{
+    string UrlBucket = keysModel.BucketUrl;
+}
+
+<h1>Peliculas AWS Api Gateway</h1>
+
+<p>
+    <a asp-controller="Eventos"
+       asp-action="Categorias">Ver Categorias</a> |
+
+    <a asp-controller="Eventos"
+       asp-action="EventosCategoria">Buscar Eventos por Categoria</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Imagen</th>
+            <th>Artista</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Evento evento in Model)
+        {
+            <tr>
+                <td>@evento.Nombre</td>
+                <td>
+                    <img src="@UrlBucket@evento.Imagen"
+                    style="width:90px; height: 130px"/>
+                </td>
+                <td>@evento.Artista</td>
+            </tr>
+        }
+    </tbody>
+</table>

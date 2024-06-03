@@ -1,0 +1,49 @@
+﻿@model List<MvcSegundaPracticaAWS.Models.Evento>
+@{
+    var categorias = ViewData["Categorias"] as List<MvcSegundaPracticaAWS.Models.CategoriaEvento>;
+    string UrlBucket = keysModel.BucketUrl;
+}
+
+<h2>Eventos por Categoría</h2>
+
+<form asp-action="EventosCategoria" method="post">
+    <select name="idCategoria" class="form-control">
+        <option value="">Seleccione una categoría</option>
+        @foreach (var categoria in categorias)
+        {
+            <option value="@categoria.IdCategoria">@categoria.Nombre</option>
+        }
+    </select>
+    <br />
+    <button type="submit" class="btn btn-primary" style="text-align:center">Mostrar Eventos</button>
+</form>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Artista</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var evento in Model)
+            {
+                <tr>
+                    <td>@evento.Nombre</td>
+                    <td>@evento.Artista</td>
+                    <td>
+                        <img src="@UrlBucket@evento.Imagen"
+                             style="width:120px; height: 150px" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model != null)
+{
+    <p>No hay eventos para la categoría seleccionada.</p>
+}
